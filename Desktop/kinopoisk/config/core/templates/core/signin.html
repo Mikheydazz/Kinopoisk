@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% block title %} Вход {% endblock %}
+  {% block content %}
+<form class="d-flex flex-column gap-2" method="post">
+    {% csrf_token %}
+    <input class="form-control" type="text" placeholder="Введите логин..." name="username" required>
+    <input class="form-control" type="password" placeholder="Введите пароль..." name="password" required>
+    <button type="submit" class="btn btn-outline-primary d-block mx-auto w-50">Подтвердить</button>
+</form>
+{% endblock %}

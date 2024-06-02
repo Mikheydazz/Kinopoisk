@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% block title %} Профиль {% endblock %}
+{% block content %}
+<div class="profile">
+    <div class="user_info">
+        <h1>{{ user.username }}</h1>
+        {% if user.avatar.url != null %}
+        <img src="{{ user.avatar.url }}" class="avatar">
+        {% endif %}
+        {% if user.is_superuser %}
+            <p class="user_status">admin</p>
+        {% endif %}
+    </div>
+    <div class="fave_movies">
+        <h2>Любимые фильмы пользователя</h2>
+        <div class="movies_container">
+        {% for movie in user.favorite_movies.all %}
+        <div class="card" style="width: 14rem;">
+            <img src="{{ movie.poster.url }}" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+                <h5 class="fs-6">{{movie.title}}</h5>
+            </div>
+            <div>
+              <a href="{% url 'movie_detail' movie_id=movie.id %}" class="btn btn-outline-primary d-block mx-auto">Смотреть</a>
+            </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+    </div>
+    <form action="" class="d-flex flex-column gap-2" method="post">
+        {% csrf_token %}
+        <input type="text" class="form-control" placeholder="Введите новое имя" name="name">
+        <input type="text" class="form-control" placeholder="Введите новую фамилию" name="surname">
+        <input type="text" class="form-control" placeholder="Введите новую почту" name="email">
+        <button type="submit" class="btn">Изменить</button>
+    </form>
+</div>
+{% endblock %}

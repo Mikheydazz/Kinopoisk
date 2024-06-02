@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block title %} Главная {% endblock %}
+  {% block content %}
+  <div class="home__filmlist">
+    {% for person in persons %}
+    <div class="card" style="width: 18rem;">
+        <a href="" class="text-decoration-none">
+    <img src="{{ person.photo.url }}" class="card-img-top" alt="...">
+        </a>
+    <div class="card-body">
+      <h5 class="card-title">{{person.name}}</h5>
+      <small>Дата рождения: {{person.birth_date}}</small>
+    </div>
+  </div>
+    {% endfor %}
+  </div>
+  {% endblock %}

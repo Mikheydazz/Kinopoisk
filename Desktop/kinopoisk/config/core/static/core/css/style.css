@@ -1,0 +1,66 @@
+.text{
+    font-size: large;
+}
+.home__filmlist{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+.film__info{
+    margin-bottom: 10px;
+}
+.film__info__text{
+    margin: 0;
+}
+@keyframes scrolling-header {
+    to {
+        height: 20px;
+    }
+}
+nav{
+    position: fixed;
+
+    animation-name: scrolling-header;
+    animation-fill-mode: both;
+    animation-timeline: scroll();
+    animation-range: 100px 200px;
+}
+
+.movie__info-grid{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+.info-grid__item{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+/* ЛИЧНЫЙ КАБИНЕТ */
+.profile{
+    display: flex;
+    gap: 90px;
+}
+.avatar{
+    max-width: 200px;
+}
+.user_info{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: fit-content;
+}
+.user_status{
+    background-color: #EE000020;
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+.fave_movies{
+    width: 100%;
+}
+.movies_container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}

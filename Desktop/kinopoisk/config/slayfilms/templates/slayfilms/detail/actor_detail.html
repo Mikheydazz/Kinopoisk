@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block title %} О человеке {% endblock %}
+  {% block content %}
+  <div class="home__filmlist">
+    {{person.name}}
+    {% for movie in movies %}
+    
+    {{movie.title}}
+
+    {% endfor %}
+  </div>
+  {% endblock %}

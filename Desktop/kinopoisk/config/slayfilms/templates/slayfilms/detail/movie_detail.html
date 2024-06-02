@@ -1,0 +1,89 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %} О фильме {% endblock %}
+  {% block content %}
+    <div class="container">
+        <section class="mt-5">
+            <div class="d-flex justify-content-between gap-5">
+                <div class="">
+                    <img src="{{ movie.poster.url }}">
+                    <div class="">
+                        <p>Рейтинг: {{movie.rating}}</p>
+                    </div>
+                </div>
+                <div class="w-75">
+                    <h1>{{movie.title}}</h1>
+                    <p>{{movie.description}}</p>
+                    <div class="movie__info-grid">
+                        <div class="info-grid__features">
+                            <div class="info-grid__item">
+                                <h5 class="info-grid__title">Жанры:</h5>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    {% for genre in movie.genres.all %}
+                                    <a href="#" class="info-grid__value">
+                                        {{genre.name}}{% if not forloop.last %},{% endif %}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="info-grid__item">
+                                <h5 class="info-grid__title">Длительность:</h5>
+                                <p class="info-grid__value">{{movie.duration}}</p>
+                            </div>
+                            <div class="info-grid__item">
+                                <h5 class="info-grid__title">Бюджет:</h5>
+                                <p class="info-grid__value">{{movie.budget}}</p>
+                            </div>
+                            <div class="info-grid__item">
+                                <h5 class="info-grid__title">Дата выхода:</h5>
+                                <p class="info-grid__value">{{movie.release_date}}</p>
+                            </div>
+                        </div>
+                        <div class="info-grid__movie-person">
+                            <div class="info-grid__actors">
+                                <h4>Актёры:</h4>
+                                <ul class="list-unstyled">
+                                    {% for actor in movie.actors.all %}
+                                    <li><a href="">{{actor.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="info-grid__directors">
+                                <h4>Режиссёры:</h4>
+                                <ul class="list-unstyled">
+                                    {% for director in movie.directors.all %}
+                                    <li><a href="">{{director.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <iframe width="640" height="384" src="https://video.sibnet.ru/shell.php?videoid={{movie.player_id}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        <div class="">
+            <form action="{% url 'add_movie_review' %}" method="post">
+                {% csrf_token %}
+                <textarea name="review_text" type="text" placeholder="Ваши умные мысли" class="w-50"></textarea>
+                <button type="submit" class="btn btn-outline-primary d-block">Отправить</button>
+                <input type="hidden" value="{{movie.id}}" name="movie_id">
+            </form>
+        </div>
+        <div class="d-flex gap-2 flex-column" style="margin-top: 20px;">
+            <h2>Самые честные отзывы</h2>
+            {% if not movie.reviews.all %}
+            <p>Отзывов нет</p>
+            {% endif %}
+            {% for review in movie.reviews.all %}
+            <div class="card border-primary mb-3" style="max-width: 18rem; margin-top: 15px;">
+                <div class="card-header">{{ review.created_at }}</div>
+                <div class="card-body text-primary">
+                  <h5 class="card-title">{{ review.author }}</h5>
+                  <p class="card-text">{{ review.text }}</p>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+  {% endblock %}

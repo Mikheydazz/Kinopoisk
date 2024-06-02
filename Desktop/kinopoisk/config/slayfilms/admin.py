@@ -16,7 +16,7 @@ class MovieAdmin(admin.ModelAdmin):
         'budget',
     )
 
-@admin.register(Gener)
+@admin.register(Genre)
 class GenerAdmin(admin.ModelAdmin):
     list_display = (
         'name',

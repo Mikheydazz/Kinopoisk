@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block title %} Жанры {% endblock %}
+  {% block content %}
+  <h1 class="text-center">Жанры</h1>
+  <div class="container d-flex flex-wrap mw-700px mx-auto gap-2">
+    {% for genre in genres %}
+    <a href=""
+    class="px-3 py-2 fs-5 text-decoration-none bg-black rounded-3 text-light
+    disable-tap-select hover hover-scale-4">
+        {{genre.name|title}}
+    </a>
+    {% endfor %}
+  </div>
+  {% endblock %}

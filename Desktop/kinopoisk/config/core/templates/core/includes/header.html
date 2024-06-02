@@ -1,3 +1,86 @@
-<header class="header">
-        
-</header>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand fs-1" href="/">SLAYFILMS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'movies_list' %}">Фильмы</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Меню
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'persons_list' person_role='actor' %}">Актёры</a></li>
+                  <li><a class="dropdown-item" href="{% url 'persons_list' person_role='director' %}">Режиссёры</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'genres_list' %}">Жанры</a></li>
+                </ul>
+              </li>
+            </ul>
+            <!-- <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Поиск</button>
+            </form> -->
+            <ul class="list-unstyled d-flex gap-1 align-items-center">
+                {% if request.user.is_authenticated %}
+                <p style="margin: auto 0;"><b>{{user.username}}</b></p>
+                <li><a class="btn btn-outline-primary" href="{% url 'profile' %}">Профиль</a></li>
+                <li><a class="btn btn-outline-primary" href="{% url 'signout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'signin' %}" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signin">
+                  Войти
+                </a></li>
+                <li><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signup">Регистрация</button></li>
+                {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Modal -->
+<div class="modal fade" id="signin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Войти</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'signin' %}" class="d-flex flex-column gap-2" method="post">
+          {% csrf_token %}
+          <input class="form-control" type="text" placeholder="Введите логин..." name="username" required>
+          <input class="form-control" type="password" placeholder="Введите пароль..." name="password" required>
+          <button type="submit" class="btn btn-outline-primary d-block mx-auto w-50">Подтвердить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Регистрация -->
+<div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Регистрация</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'signup' %}" class="d-flex flex-column gap-2" method="post">
+          {% csrf_token %}
+          <input class="form-control" type="text" placeholder="Введите логин..." name="username" required>
+          <input class="form-control" type="email" placeholder="Введите email..." name="email" required>
+          <input class="form-control" type="password" placeholder="Введите пароль..." name="password" required>
+          <input class="form-control" type="password" placeholder="Подтвердите пароль..." name="password_confirm" required>
+          <button type="submit" class="btn btn-outline-primary d-block mx-auto w-50">Подтвердить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
